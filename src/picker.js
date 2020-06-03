@@ -137,7 +137,7 @@
             var selectedId = $elem.parent().data('id');
             var order = $elem.parent().data('order');
 
-            var li = $("<li>").html($elem.parent().text()).attr('data-id', selectedId).attr('data-order', order);
+            var li = $("<li>").html($elem.parent().html()).attr('data-id', selectedId).attr('data-order', order);
             li.click(this.pc_selected.bind(this));
 
 
@@ -228,9 +228,9 @@
                 this.$elem.find("option").removeAttr("selected");
 
                 if (this.config.coloring[id]) {
-                    this.$container.find(".pc-trigger").removeClass().addClass(this.config.coloring[selectedId] + " pc-trigger pc-element").contents().first().replaceWith($elem.text());
+                    this.$container.find(".pc-trigger").removeClass().addClass(this.config.coloring[selectedId] + " pc-trigger pc-element").contents().first().replaceWith($elem.html());
                 } else {
-                    this.$container.find(".pc-trigger").contents().first().replaceWith($elem.text());
+                    this.$container.find(".pc-trigger").contents().first().replaceWith($elem.html());
                 }
             }
 
@@ -246,7 +246,7 @@
             if(this.currentData.length == 0){
                 this.currentData = [{
                     'id': selectedId,
-                    'text': $elem.parent().text(),
+                    'text': $elem.parent().html(),
                     'order': order
                 }];
 
@@ -259,7 +259,7 @@
                     if(order < this.currentData[i].order || this.currentData.length == 1){
                         this.currentData.splice(0, 0, {
                             'id': selectedId,
-                            'text': $elem.parent().text(),
+                            'text': $elem.parent().html(),
                             'order': order
                         });
                         break;
@@ -268,7 +268,7 @@
                     if(order > this.currentData[i].order){
                         this.currentData.splice(i, 0, {
                             'id': selectedId,
-                            'text': $elem.parent().text(),
+                            'text': $elem.parent().html(),
                             'order': order
                         });
                         break;
@@ -276,7 +276,7 @@
                 } else if (this.currentData[i - 1].order < order && order < this.currentData[i].order) {
                     this.currentData.splice(i, 0, {
                         'id': selectedId,
-                        'text': $elem.parent().text(),
+                        'text': $elem.parent().html(),
                         'order': order
                     });
                     break;
@@ -294,7 +294,7 @@
         },
 
         _build: function(){
-            var firstOptText = this.$elem.find('option:eq(0)').text();
+            var firstOptText = this.$elem.find('option:eq(0)').html();
             var triggerText = (firstOptText && this.config.useOptionAsPlaceholder) ? firstOptText : this.config.texts.trigger;
 
             this.$container = $("<div class='picker" + (this.config.containerClass ? ' ' + this.config.containerClass : '') + "'>" +
@@ -339,14 +339,14 @@
             var listContainer = this.$container.find('.pc-list ul');
             var counter = 0;
             this.$elem.find('option:not([hidden])').each(function(index, elem){
-                var li = $("<li>").html($(elem).text()).attr('data-id', $(elem).attr('value')).attr('data-order', counter);
+                var li = $("<li>").html($(elem).html()).attr('data-id', $(elem).attr('value')).attr('data-order', counter);
                 li.click(this.pc_selected.bind(this));
                 listContainer.append(li);
 
                 if(this.config.search){
                     this.currentData.push({
                         'id' : $(elem).attr('value'),
-                        'text' : $(elem).text(),
+                        'text' : $(elem).html(),
                         'order' : counter
                     });
                 }
