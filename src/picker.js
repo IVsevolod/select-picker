@@ -182,7 +182,7 @@
                     }
                 });
             }
-            this.$elem.find(" option[value='" + selectedId + "']").removeAttr("selected");
+            this.$elem.find(" option[value='" + $.escapeSelector(selectedId) + "']").removeAttr("selected");
             $elem.parent().remove();
             this.$elem.trigger('sp-change');
         },
@@ -199,7 +199,7 @@
 
         _selectElement: function (id, $elem) {
             if($elem == undefined){
-                $elem = this.$container.find('.pc-list li[data-id="' + id + '"]');
+                $elem = this.$container.find('.pc-list li[data-id="' + $.escapeSelector(id) + '"]');
 
                 if($elem.length == 0){
                     console.log('Picker - ID to select not found!');
@@ -234,7 +234,7 @@
                 }
             }
 
-            this.$elem.find("option[value='" + id + "']").attr("selected", "selected");
+            this.$elem.find("option[value='" + $.escapeSelector(id) + "']").attr("selected", "selected");
 
         },
 
@@ -443,7 +443,7 @@
             }
 
             var e = {};
-            e.target = this.$container.find('.pc-element[data-id="' + args[0] + '"] .pc-close')[0];
+            e.target = this.$container.find('.pc-element[data-id="' + $.escapeSelector(args[0]) + '"] .pc-close')[0];
 
             this.pc_remove(e);
 
